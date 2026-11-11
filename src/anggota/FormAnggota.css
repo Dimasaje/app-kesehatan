@@ -1,0 +1,123 @@
+.form-anggota {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-6) var(--space-4);
+  max-width: 430px;
+  margin: 0 auto;
+}
+
+.form-anggota__judul {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+}
+
+.form-anggota__galat {
+  font-size: var(--text-sm);
+  color: var(--color-danger);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(192, 57, 43, 0.08);
+  border-radius: var(--radius-md);
+  margin: 0;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.form-label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+  min-height: auto;
+}
+
+.form-hint {
+  font-weight: 400;
+  color: #4a5893;
+}
+
+.form-input {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  width: 100%;
+}
+
+.form-input:focus {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-color: var(--color-primary);
+}
+
+.form-input--area {
+  padding: var(--space-3) var(--space-4);
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-fieldset {
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  margin: 0;
+}
+
+.form-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+.form-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  min-height: auto;
+}
+
+.form-warna {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.form-warna__titik {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: transform 0.12s, border-color 0.12s;
+  min-height: auto;
+  padding: 0;
+}
+
+.form-warna__titik--aktif {
+  border-color: var(--color-ink);
+  transform: scale(1.15);
+}
+
+.form-aksi {
+  display: flex;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
