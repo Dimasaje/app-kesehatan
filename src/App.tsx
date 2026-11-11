@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import { Beranda } from './beranda/Beranda'
 import { LayarBuatPin } from './kunci/LayarBuatPin'
 import { LayarMasukkanPin } from './kunci/LayarMasukkanPin'
 import { useKunci } from './kunci/useKunci'
@@ -45,26 +46,6 @@ export default function App() {
     )
   }
 
-  // status === 'terbuka' — isi app utama (Issue #7 dst)
-  return (
-    <main className="halaman">
-      <header className="sampul">
-        <h1 className="sampul__judul">Rekam Keluarga</h1>
-        <p className="sampul__catatan">
-          Buku kesehatan keluarga. Semua data tersimpan di HP ini.
-        </p>
-      </header>
-      <p style={{ padding: 'var(--space-4)', textAlign: 'center', color: 'var(--color-ink)', opacity: 0.6 }}>
-        Layar beranda menyusul (Issue #7).
-      </p>
-      <button
-        type="button"
-        className="btn btn-ghost"
-        style={{ margin: 'auto' }}
-        onClick={kunci.kunci}
-      >
-        Kunci aplikasi
-      </button>
-    </main>
-  )
+  // status === 'terbuka'
+  return <Beranda onKunci={kunci.kunci} />
 }
