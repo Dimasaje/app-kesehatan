@@ -1,0 +1,78 @@
+.pin-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.pin-label {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+  margin: 0;
+  text-align: center;
+}
+
+.pin-dots {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.pin-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: var(--border-width) solid var(--color-primary);
+  background: transparent;
+  transition: background 0.15s;
+}
+
+.pin-dot--isi {
+  background: var(--color-primary);
+}
+
+.pin-pad {
+  display: grid;
+  grid-template-columns: repeat(3, var(--touch-min));
+  grid-template-rows: repeat(4, var(--touch-min));
+  gap: var(--space-3);
+}
+
+.pin-key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border-radius: 50%;
+  border: var(--border-width) solid var(--border-color);
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.pin-key:hover:not(:disabled) {
+  background: var(--color-blue-light);
+}
+
+.pin-key:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pin-key--hapus {
+  background: transparent;
+  border-color: transparent;
+  font-size: var(--text-xl);
+  color: var(--color-primary);
+}
+
+.pin-reset {
+  font-size: var(--text-sm);
+  min-height: auto;
+  padding: var(--space-2) var(--space-4);
+}

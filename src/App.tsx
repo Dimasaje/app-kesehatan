@@ -1,192 +1,70 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
-import {
-  bacaStatusPenyimpanan,
-  mintaPenyimpananTetap,
-  type StatusPenyimpanan,
-} from './data/db'
-import {
-  bersihkanDataUji,
-  jalankanUjiSimpan,
-  type HasilUjiPenyimpanan,
-} from './data/diagnostik'
-
-function ukuranByte(nilai: number | null): string {
-  if (nilai === null) return 'tidak tersedia'
-  if (nilai < 1024) return `${nilai} B`
-  const satuan = ['KB', 'MB', 'GB']
-  let angka = nilai / 1024
-  let i = 0
-  while (angka >= 1024 && i < satuan.length - 1) {
-    angka /= 1024
-    i += 1
-  }
-  return `${angka.toFixed(angka < 10 ? 1 : 0)} ${satuan[i]}`
-}
+import { LayarBuatPin } from './kunci/LayarBuatPin'
+import { LayarMasukkanPin } from './kunci/LayarMasukkanPin'
+import { useKunci } from './kunci/useKunci'
 
 export default function App() {
-  const [status, setStatus] = useState<StatusPenyimpanan | null>(null)
-  const [hasil, setHasil] = useState<HasilUjiPenyimpanan | null>(null)
+  const kunci = useKunci()
   const [sibuk, setSibuk] = useState(false)
-  const [daring, setDaring] = useState(() => navigator.onLine)
-  const [terpasang, setTerpasang] = useState(
-    () => window.matchMedia('(display-mode: standalone)').matches,
-  )
 
-  const muatStatus = useCallback(async () => {
-    setStatus(await bacaStatusPenyimpanan())
-  }, [])
-
-  useEffect(() => {
-    // Memuat status dari IndexedDB adalah sinkronisasi dengan sistem luar
-    // (penyimpanan), bukan turunan dari render.
-    // oxlint-disable-next-line react/set-state-in-effect
-    void muatStatus()
-  }, [muatStatus])
-
-  useEffect(() => {
-    const naik = () => setDaring(true)
-    const turun = () => setDaring(false)
-    window.addEventListener('online', naik)
-    window.addEventListener('offline', turun)
-    return () => {
-      window.removeEventListener('online', naik)
-      window.removeEventListener('offline', turun)
-    }
-  }, [])
-
-  useEffect(() => {
-    const kueri = window.matchMedia('(display-mode: standalone)')
-    const ubah = () => setTerpasang(kueri.matches)
-    kueri.addEventListener('change', ubah)
-    return () => kueri.removeEventListener('change', ubah)
-  }, [])
-
-  async function ujiSimpan() {
-    setSibuk(true)
-    try {
-      setHasil(await jalankanUjiSimpan())
-      await muatStatus()
-    } finally {
-      setSibuk(false)
-    }
+  if (kunci.status === 'memuat') {
+    return (
+      <div className="layar-muat" aria-label="Memuat aplikasi" aria-live="polite">
+        <span className="layar-muat__spinner" aria-hidden="true" />
+      </div>
+    )
   }
 
-  async function hapusUji() {
-    setSibuk(true)
-    try {
-      await bersihkanDataUji()
-      setHasil(null)
-      await muatStatus()
-    } finally {
-      setSibuk(false)
-    }
+  if (kunci.status === 'buat-pin') {
+    return (
+      <LayarBuatPin
+        sibuk={sibuk}
+        onBuat={async (pin) => {
+          setSibuk(true)
+          try { await kunci.buatPin(pin) }
+          finally { setSibuk(false) }
+        }}
+      />
+    )
   }
 
-  async function mintaTetap() {
-    setSibuk(true)
-    try {
-      await mintaPenyimpananTetap()
-      await muatStatus()
-    } finally {
-      setSibuk(false)
-    }
+  if (kunci.status === 'masukkan-pin') {
+    return (
+      <LayarMasukkanPin
+        sibuk={sibuk}
+        gagal={kunci.gagal}
+        terkunci={kunci.terkunci}
+        detikSisa={kunci.detikSisa}
+        onMasukkan={async (pin) => {
+          setSibuk(true)
+          try { return await kunci.masukkannPin(pin) }
+          finally { setSibuk(false) }
+        }}
+      />
+    )
   }
 
+  // status === 'terbuka' — isi app utama (Issue #7 dst)
   return (
     <main className="halaman">
       <header className="sampul">
         <h1 className="sampul__judul">Rekam Keluarga</h1>
         <p className="sampul__catatan">
-          Buku kesehatan keluarga. Semua data tersimpan di HP ini dan tidak pernah
-          dikirim ke mana pun.
+          Buku kesehatan keluarga. Semua data tersimpan di HP ini.
         </p>
       </header>
-
-      <section className="kartu" aria-labelledby="judul-status">
-        <h2 className="kartu__judul" id="judul-status">
-          Status penyimpanan
-        </h2>
-        <p className="kartu__petunjuk">
-          Layar sementara untuk memastikan fondasi aplikasi berjalan. Tampilan
-          sebenarnya menyusul pada Issue #2 dan #7.
-        </p>
-
-        <dl className="daftar-status">
-          <dt>Basis data</dt>
-          <dd>
-            <span
-              className={`tanda ${status?.tersedia ? 'tanda--ok' : 'tanda--masalah'}`}
-            >
-              {status === null
-                ? 'memeriksa…'
-                : status.tersedia
-                  ? 'aktif'
-                  : 'tidak tersedia'}
-            </span>
-          </dd>
-
-          <dt>Skema</dt>
-          <dd>{status ? `v${status.versiSkema}` : '—'}</dd>
-
-          <dt>Anggota</dt>
-          <dd>{status ? status.jumlahAnggota : '—'}</dd>
-
-          <dt>Terpakai</dt>
-          <dd>{status ? ukuranByte(status.perkiraanPemakaian) : '—'}</dd>
-
-          <dt>Kuota</dt>
-          <dd>{status ? ukuranByte(status.kuota) : '—'}</dd>
-
-          <dt>Penyimpanan tetap</dt>
-          <dd>{status ? (status.tetap ? 'ya' : 'belum') : '—'}</dd>
-
-          <dt>Mode</dt>
-          <dd>{terpasang ? 'terpasang di layar utama' : 'tab browser'}</dd>
-
-          <dt>Jaringan</dt>
-          <dd>{daring ? 'daring' : 'luring (offline)'}</dd>
-        </dl>
-
-        <div className="tombol-baris">
-          <button className="tombol" type="button" onClick={ujiSimpan} disabled={sibuk}>
-            Uji simpan lalu baca ulang
-          </button>
-          <button
-            className="tombol tombol--kedua"
-            type="button"
-            onClick={hapusUji}
-            disabled={sibuk}
-          >
-            Hapus data uji
-          </button>
-          <button
-            className="tombol tombol--kedua"
-            type="button"
-            onClick={mintaTetap}
-            disabled={sibuk || status?.tetap !== false}
-          >
-            Minta penyimpanan tetap
-          </button>
-        </div>
-
-        {hasil ? (
-          <p className="pesan-uji" role="status">
-            <span
-              className={`tanda ${hasil.berhasil ? 'tanda--ok' : 'tanda--masalah'}`}
-            >
-              {hasil.berhasil ? 'Berhasil' : 'Gagal'}
-            </span>
-            <br />
-            {hasil.pesan}
-          </p>
-        ) : null}
-      </section>
-
-      <p className="catatan-kaki">
-        Aplikasi berjalan luring. Data hanya ada di perangkat ini — buat cadangan
-        terenkripsi secara berkala (Issue #12).
+      <p style={{ padding: 'var(--space-4)', textAlign: 'center', color: 'var(--color-ink)', opacity: 0.6 }}>
+        Layar beranda menyusul (Issue #7).
       </p>
+      <button
+        type="button"
+        className="btn btn-ghost"
+        style={{ margin: 'auto' }}
+        onClick={kunci.kunci}
+      >
+        Kunci aplikasi
+      </button>
     </main>
   )
 }
