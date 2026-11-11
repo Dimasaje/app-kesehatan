@@ -7,6 +7,7 @@
 import { useState } from 'react'
 import type { Anggota, Pengingat } from '../data/skema'
 import { HalamanAnggota } from '../anggota/HalamanAnggota'
+import { HalamanPengingat } from '../pengingat/HalamanPengingat'
 import { useBeranda } from './useBeranda'
 import './Beranda.css'
 
@@ -85,7 +86,7 @@ interface Props {
   onKunci(): void
 }
 
-type Layar = 'beranda' | 'anggota'
+type Layar = 'beranda' | 'anggota' | 'pengingat'
 
 export function Beranda({ onKunci }: Props) {
   const { anggota, pengingat, memuatAnggota, muat } = useBeranda()
@@ -94,6 +95,12 @@ export function Beranda({ onKunci }: Props) {
   if (layar === 'anggota') {
     return (
       <HalamanAnggota onKembali={() => { setLayar('beranda'); void muat() }} />
+    )
+  }
+
+  if (layar === 'pengingat') {
+    return (
+      <HalamanPengingat onKembali={() => { setLayar('beranda'); void muat() }} />
     )
   }
 
@@ -113,7 +120,10 @@ export function Beranda({ onKunci }: Props) {
           onClick={onKunci}
           aria-label="Kunci aplikasi"
         >
-          🔒
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="9" width="12" height="9" rx="2" stroke="currentColor" strokeWidth="1.8"/>
+            <path d="M7 9V6a3 3 0 1 1 6 0v3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+          </svg>
         </button>
       </header>
 
@@ -174,7 +184,16 @@ export function Beranda({ onKunci }: Props) {
       {/* Pengingat mendatang */}
       {pengingat.length > 0 && (
         <section className="beranda__seksi" aria-labelledby="label-pengingat">
-          <h2 className="beranda__seksi-judul" id="label-pengingat">Pengingat mendatang</h2>
+          <div className="beranda__seksi-header">
+            <h2 className="beranda__seksi-judul" id="label-pengingat">Pengingat mendatang</h2>
+            <button
+              type="button"
+              className="btn btn-ghost beranda__btn-kelola"
+              onClick={() => setLayar('pengingat')}
+            >
+              Kelola
+            </button>
+          </div>
           <div className="beranda__pengingat-list" role="list">
             {pengingat.map((p) => (
               <div key={p.id} role="listitem">
@@ -183,6 +202,16 @@ export function Beranda({ onKunci }: Props) {
             ))}
           </div>
         </section>
+      )}
+
+      {pengingat.length === 0 && (
+        <button
+          type="button"
+          className="dashed-action"
+          onClick={() => setLayar('pengingat')}
+        >
+          + Tambah pengingat
+        </button>
       )}
     </div>
   )
