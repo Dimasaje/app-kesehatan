@@ -94,6 +94,9 @@ export async function kumpulkanBundelCadangan(): Promise<BundelCadangan> {
     db.pengaturan.toArray(),
   ])
 
+  // Jangan sertakan kredensial kunci/PIN (hash, salt, iterasi) ke dalam cadangan ekspor
+  const pengaturanAman = pengaturan.filter((p) => !p.kunci.startsWith('kunci.'))
+
   // Konversi semua Blob lampiran ke Base64
   const lampiran: LampiranSerial[] = await Promise.all(
     daftarLampiran.map(async (l) => ({
@@ -118,7 +121,7 @@ export async function kumpulkanBundelCadangan(): Promise<BundelCadangan> {
       obat,
       vaksin,
       pengingat,
-      pengaturan,
+      pengaturan: pengaturanAman,
     },
   }
 }

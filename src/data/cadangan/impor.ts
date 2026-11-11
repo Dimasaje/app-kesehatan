@@ -127,16 +127,6 @@ export async function pulihkanDariBundel(
   const pertahankanKunci = opsi.pertahankanKunciLokal ?? true
   const db = basisData()
 
-  // Ambil pengaturan kunci lokal saat ini jika ingin dipertahankan
-  let pengaturanKunciLokal: Record<string, unknown> = {}
-  if (pertahankanKunci) {
-    const kunciList = ['kunci.aktif', 'kunci.hash', 'kunci.salt', 'kunci.iterasi']
-    const barisLokal = await db.pengaturan.where('kunci').anyOf(kunciList).toArray()
-    for (const b of barisLokal) {
-      pengaturanKunciLokal[b.kunci] = b.nilai
-    }
-  }
-
   // Siapkan baris lampiran yang sudah dikonversi kembali ke Blob
   const daftarLampiranPulih: Lampiran[] = bundel.tabel.lampiran.map((l) => ({
     id: l.id,
