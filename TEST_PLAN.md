@@ -28,13 +28,13 @@ Dokumen ini memuat matriks skenario uji untuk seluruh fitur MVP dan pengujian no
 ### Fitur 1: Kunci Aplikasi (PIN)
 | ID | Skenario Uji | Langkah Pengujian | Hasil yang Diharapkan | Status |
 |---|---|---|---|---|
-| TC-PIN-01 | Pembuatan PIN pertama kali | 1. Buka aplikasi saat fresh install.<br>2. Masukkan PIN baru 4-6 digit.<br>3. Konfirmasi PIN ulang. | PIN berhasil disimpan (hashed/encrypted di IndexedDB/Secure Storage, bukan plaintext). Aplikasi terbuka ke Beranda. | Draft |
-| TC-PIN-02 | Konfirmasi PIN tidak cocok | 1. Masukkan PIN awal `1234`.<br>2. Masukkan konfirmasi PIN `1235`. | Muncul pesan validasi "PIN konfirmasi tidak cocok". Form tidak submit. | Draft |
-| TC-PIN-03 | Buka aplikasi dengan PIN benar | 1. Tutup aplikasi/kunci layar.<br>2. Buka aplikasi kembali.<br>3. Masukkan PIN yang benar. | Kunci terbuka, navigasi diarahkan ke halaman Beranda. | Draft |
-| TC-PIN-04 | Masukkan PIN salah | 1. Buka layar kunci.<br>2. Masukkan PIN yang salah. | Muncul indikator kesalahan, getaran/shake animasi pada keypad, input ter-reset. | Draft |
-| TC-PIN-05 | Proteksi brute force / timeout | 1. Masukkan PIN salah berturut-turut sebanyak 5 kali. | Input terkunci sementara dengan hitung mundur jeda waktu (misal: tunggu 30 detik). | Draft |
-| TC-PIN-06 | Integrasi Biometrik (WebAuthn) | 1. Aktifkan fitur biometrik di Pengaturan (jika didukung perangkat).<br>2. Buka aplikasi dan verifikasi via Fingerprint/FaceID. | Aplikasi terbuka tanpa perlu mengetik PIN manual. Fallback PIN tetap tersedia jika biometrik gagal/dibatalkan. | Draft |
-| TC-PIN-07 | Ubah PIN | 1. Masuk menu Pengaturan > Ubah PIN.<br>2. Masukkan PIN lama.<br>3. Masukkan dan konfirmasi PIN baru. | PIN berhasil diperbarui. Percobaan masuk berikutnya wajib memakai PIN baru. | Draft |
+| TC-PIN-01 | Pembuatan PIN pertama kali | 1. Buka aplikasi saat fresh install.<br>2. Masukkan PIN baru 6 digit.<br>3. Konfirmasi PIN ulang. | PIN berhasil disimpan (PBKDF2-SHA256, 210.000 iterasi, salt 16-byte di tabel Pengaturan IndexedDB, bukan plaintext). Aplikasi terbuka ke Beranda. | Ready |
+| TC-PIN-02 | Konfirmasi PIN tidak cocok | 1. Masukkan PIN awal `123456`.<br>2. Masukkan konfirmasi PIN `123457`. | Muncul pesan validasi "PIN tidak cocok. Coba lagi." Form kembali ke tahap pertama. | Ready |
+| TC-PIN-03 | Buka aplikasi dengan PIN benar | 1. Tutup aplikasi/kunci layar.<br>2. Buka aplikasi kembali.<br>3. Masukkan PIN 6 digit yang benar. | Kunci terbuka, navigasi diarahkan ke halaman Beranda. | Ready |
+| TC-PIN-04 | Masukkan PIN salah | 1. Buka layar kunci.<br>2. Masukkan PIN yang salah. | Muncul indikator kesalahan "PIN salah. Sisa percobaan: X", input ter-reset. | Ready |
+| TC-PIN-05 | Proteksi brute force / timeout | 1. Masukkan PIN salah berturut-turut sebanyak 5 kali. | Input keypad terkunci dengan hitung mundur jeda waktu 30 detik ("Terlalu banyak percobaan salah. Coba lagi dalam X detik."). | Ready |
+| TC-PIN-06 | Integrasi Biometrik (WebAuthn) | 1. Aktifkan fitur biometrik di Pengaturan (jika didukung perangkat).<br>2. Buka aplikasi dan verifikasi via Fingerprint/FaceID. | Aplikasi terbuka tanpa perlu mengetik PIN manual. Fallback PIN tetap tersedia jika biometrik gagal/dibatalkan. | Backlog |
+| TC-PIN-07 | Ubah PIN | 1. Masuk menu Pengaturan > Ubah PIN.<br>2. Masukkan PIN lama.<br>3. Masukkan dan konfirmasi PIN baru. | PIN berhasil diperbarui. Percobaan masuk berikutnya wajib memakai PIN baru. | Backlog |
 
 ---
 
@@ -75,29 +75,29 @@ Dokumen ini memuat matriks skenario uji untuk seluruh fitur MVP dan pengujian no
 ### Fitur 5: Riwayat Penyakit Keluarga
 | ID | Skenario Uji | Langkah Pengujian | Hasil yang Diharapkan | Status |
 |---|---|---|---|---|
-| TC-HER-01 | Penandaan kondisi herediter | 1. Pada profil anggota atau menu riwayat keluarga, tandai kondisi tertentu (contoh: Diabetes Melitus, Hipertensi, Asma).<br>2. Simpan. | Indikator kondisi keluarga tercatat pada entitas riwayat keluarga. | Draft |
-| TC-HER-02 | Visibilitas pada profil anggota | 1. Buka profil anggota keluarga.<br>2. Periksa bagian "Riwayat Kesehatan Keluarga". | Muncul badge/catatan peringatan faktor risiko keluarga sesuai silsilah. | Draft |
+| TC-HER-01 | Penandaan kondisi herediter | 1. Pada profil anggota atau menu riwayat keluarga, tandai kondisi tertentu (contoh: Diabetes Melitus, Hipertensi, Asma).<br>2. Simpan. | Indikator kondisi keluarga tercatat pada entitas riwayat keluarga. | Ready |
+| TC-HER-02 | Visibilitas pada profil anggota | 1. Buka profil anggota keluarga.<br>2. Periksa bagian "Riwayat Kesehatan Keluarga". | Muncul badge teks `MENURUN` (tanpa emoji, sesuai PRD pasal 10) dan ikon SVG inline peringatan faktor risiko keluarga. | Ready |
 
 ---
 
 ### Fitur 6: Pengingat (Perlu Perhatian)
 | ID | Skenario Uji | Langkah Pengujian | Hasil yang Diharapkan | Status |
 |---|---|---|---|---|
-| TC-REM-01 | Tambah pengingat kontrol dokter | 1. Buat pengingat baru jenis "Kontrol".<br>2. Tentukan tanggal kontrol (misal: 3 hari ke depan).<br>3. Simpan. | Pengingat tersimpan dan terhubung ke anggota terkait. | Draft |
-| TC-REM-02 | Tampilan "Perlu Perhatian" di Beranda | 1. Buka halaman Beranda.<br>2. Periksa kartu "Perlu Perhatian". | Pengingat berurutan dari tanggal paling dekat/mendesak. Indikator jatuh tempo bergaya cap visual. | Draft |
-| TC-REM-03 | Pengingat obat habis | 1. Catat jadwal konsumsi obat rutin dengan estimasi stok habis.<br>2. Simpan pengingat. | Saat mendekati tanggal habis, status berubah menjadi peringatan mendesak. | Draft |
-| TC-REM-04 | Tandai pengingat selesai | 1. Klik checklist / aksi selesai pada kartu pengingat. | Pengingat bergeser ke status selesai / dihapus dari daftar aktif Beranda. | Draft |
+| TC-REM-01 | Tambah pengingat kontrol dokter | 1. Buat pengingat baru jenis "Kontrol".<br>2. Tentukan tanggal kontrol (misal: 3 hari ke depan).<br>3. Simpan. | Pengingat tersimpan dan terhubung ke anggota terkait. | Ready |
+| TC-REM-02 | Tampilan "Perlu Perhatian" di Beranda | 1. Buka halaman Beranda.<br>2. Periksa kartu "Perlu Perhatian". | Anggota dengan kondisi kronis tampil di "Perlu perhatian", dan kartu pengingat berurutan dari tanggal paling dekat/mendesak. | Ready |
+| TC-REM-03 | Pengingat obat habis | 1. Catat jadwal konsumsi obat rutin dengan estimasi stok habis.<br>2. Simpan pengingat. | Saat mendekati tanggal habis, status berubah menjadi peringatan mendesak. | Ready |
+| TC-REM-04 | Tandai pengingat selesai | 1. Klik checklist / aksi selesai pada kartu pengingat. | Pengingat bergeser ke status selesai / dihapus dari daftar aktif Beranda. | Ready |
 
 ---
 
 ### Fitur 7: Cadangan & Pemulihan (Backup & Restore)
 | ID | Skenario Uji | Langkah Pengujian | Hasil yang Diharapkan | Status |
 |---|---|---|---|---|
-| TC-BCK-01 | Ekspor cadangan terenkripsi | 1. Masuk menu Cadangan.<br>2. Masukkan kata sandi enkripsi.<br>3. Klik Ekspor Cadangan. | Menghasilkan file cadangan terunduh (contoh: `rekam-keluarga-backup-[tanggal].rkenc`). File terenkripsi (AES-GCM Web Crypto API), data tidak dapat dibaca polos lewat teks editor. | Draft |
-| TC-BCK-02 | Pengingat cadangan berkala di Beranda | 1. Biarkan aplikasi tidak dicadangkan dalam periode tertentu (atau simulasi timestamp cadangan lampau). | Tampil kartu peringatan di Beranda: "Cadangan belum diperbarui X hari". | Draft |
-| TC-BCK-03 | Gagal impor dengan kata sandi salah | 1. Pilih menu Impor Cadangan.<br>2. Pilih file `.rkenc` yang valid.<br>3. Masukkan kata sandi yang salah.<br>4. Klik Pulihkan. | Dekripsi gagal, data tidak berubah, tampil error: "Kata sandi salah atau berkas rusak". | Draft |
-| TC-BCK-04 | Impor dan pemulihan sukses | 1. Buat backup di Perangkat A (berisi anggota, kunjungan, foto, pengingat).<br>2. Pindahkan file ke Perangkat B.<br>3. Lakukan impor dengan kata sandi yang benar. | Semua data (teks dan gambar lampiran) pulih 100% identik tanpa kehilangan data. | Draft |
-| TC-BCK-05 | Peringatan overwrite saat impor | 1. Aplikasi di Perangkat B sudah memiliki data eksisting.<br>2. Lakukan proses impor file cadangan. | Muncul modal peringatan eksplisit bahwa data saat ini akan ditimpa/digabung sebelum proses dijalankan. | Draft |
+| TC-BCK-01 | Ekspor cadangan terenkripsi | 1. Masuk menu Cadangan.<br>2. Masukkan kata sandi enkripsi.<br>3. Klik Ekspor Cadangan. | Menghasilkan file cadangan terunduh `rekam-keluarga-[YYYYMMDD-HHmmss].rekam`. File terenkripsi format biner (AES-GCM-256 Web Crypto API, PBKDF2-SHA256, salt 16B, IV 12B), data tidak dapat dibaca polos lewat teks editor. | Ready |
+| TC-BCK-02 | Pengingat cadangan berkala di Beranda | 1. Biarkan aplikasi tidak dicadangkan dalam periode tertentu (atau simulasi timestamp cadangan lampau). | Tampil kartu peringatan di Beranda: "Cadangan belum diperbarui X hari". | Ready |
+| TC-BCK-03 | Gagal impor dengan kata sandi salah | 1. Pilih menu Impor Cadangan.<br>2. Pilih file `.rekam` yang valid.<br>3. Masukkan kata sandi yang salah.<br>4. Klik Pulihkan. | Dekripsi gagal, data tidak berubah, tampil error: "Kata sandi salah atau berkas rusak". | Ready |
+| TC-BCK-04 | Impor dan pemulihan sukses | 1. Buat backup di Perangkat A (berisi anggota, kunjungan, foto Blob, pengingat).<br>2. Pindahkan file ke Perangkat B.<br>3. Lakukan impor dengan kata sandi yang benar. | Semua data (teks dan gambar lampiran Blob) pulih 100% identik tanpa kehilangan data. | Ready |
+| TC-BCK-05 | Peringatan overwrite saat impor | 1. Aplikasi di Perangkat B sudah memiliki data eksisting.<br>2. Lakukan proses impor file cadangan. | Muncul modal peringatan eksplisit bahwa data saat ini akan ditimpa/digabung sebelum proses dijalankan. | Ready |
 
 ---
 
