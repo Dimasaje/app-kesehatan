@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rekam Keluarga — Preview Layar Tambahan (Issue #15)</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<link rel="stylesheet" href="components.css" />
+<link rel="stylesheet" href="LayarCadangan.css" />
+<link rel="stylesheet" href="LayarPengaturan.css" />
+<style>
+  body {
+    background: #c8d0e8;
+    margin: 0;
+    padding: 32px 16px 48px;
+    font-family: var(--font-body);
+  }
+
+  .preview-judul {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    color: #4a5893;
+    text-align: center;
+    margin: 0 0 8px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .preview-nama {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    color: #14226B;
+    text-align: center;
+    margin: 0 0 32px;
+  }
+
+  /* Grid dua kolom layar */
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+    gap: 32px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Bingkai ponsel */
+  .ponsel {
+    background: var(--color-bg);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(20,34,107,0.18), 0 2px 8px rgba(20,34,107,0.10);
+    max-width: 430px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .ponsel__label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #4a5893;
+    text-align: center;
+    padding: 10px 0 0;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Bar navigasi bawah di preview */
+  .bottom-nav {
+    position: static; /* override dari components.css */
+    border-top: var(--border-width) solid var(--border-color);
+  }
+
+  /* Catatan inkonsistensi */
+  .inkonsistensi {
+    max-width: 900px;
+    margin: 48px auto 0;
+    background: rgba(180,83,9,0.07);
+    border-left: 3px solid var(--color-warning);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .inkonsistensi__judul {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-warning);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .inkonsistensi__list {
+    margin: 0;
+    padding: 0 0 0 16px;
+    font-size: 13px;
+    color: var(--color-ink);
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<p class="preview-judul">Issue #15 — Desain Referensi</p>
+<h1 class="preview-nama">Rekam Keluarga — Layar Tambahan</h1>
+
+<div class="preview-grid">
+
+  <!-- ===== LAYAR CADANGAN ===== -->
+  <div>
+    <div class="ponsel__label">Cadangan</div>
+    <div class="ponsel">
+      <main class="layar-cadangan">
+
+        <!-- Header -->
+        <header class="layar-cadangan__header">
+          <button class="btn btn-ghost btn--kembali" type="button" aria-label="Kembali">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <h1 class="layar-cadangan__judul">Cadangan</h1>
+        </header>
+
+        <!-- Status cadangan terakhir — OK -->
+        <section class="cadangan__seksi">
+          <h2 class="cadangan__seksi-judul">Status Terakhir</h2>
+          <div class="kartu-status-cadangan">
+            <span class="kartu-status-cadangan__label">Cadangan terakhir</span>
+            <time class="kartu-status-cadangan__waktu" datetime="2026-11-10T22:15">10 Nov 2026, 22:15</time>
+            <span class="kartu-status-cadangan__info">Cadangan berhasil dibuat secara manual.</span>
+            <span class="kartu-status-cadangan__ukuran">48 KB · rekam-keluarga-20261110.rk</span>
+          </div>
+        </section>
+
+        <!-- Ekspor -->
+        <section class="cadangan__seksi">
+          <h2 class="cadangan__seksi-judul">Ekspor</h2>
+          <div class="kartu-aksi-cadangan">
+            <div class="kartu-aksi-cadangan__teks">
+              <span class="kartu-aksi-cadangan__nama">Simpan ke perangkat</span>
+              <span class="kartu-aksi-cadangan__deskripsi">Unduh file .rk terenkripsi. Simpan di tempat aman — hanya kamu yang bisa membukanya dengan PIN.</span>
+            </div>
+            <button class="btn btn-primary kartu-aksi-cadangan__btn" type="button">Ekspor</button>
+          </div>
+        </section>
+
+        <!-- Impor -->
+        <section class="cadangan__seksi">
+          <h2 class="cadangan__seksi-judul">Impor &amp; Pulihkan</h2>
+          <div class="kartu-aksi-cadangan">
+            <div class="kartu-aksi-cadangan__teks">
+              <span class="kartu-aksi-cadangan__nama">Muat dari file</span>
+              <span class="kartu-aksi-cadangan__deskripsi">Pilih file .rk untuk memulihkan data. Data saat ini akan digantikan — pastikan sudah ekspor lebih dulu.</span>
+            </div>
+            <button class="btn btn-secondary kartu-aksi-cadangan__btn" type="button">Pilih File</button>
+          </div>
+          <!-- Contoh: sedang memproses -->
+          <div class="cadangan__progres" role="status" aria-live="polite">
+            <span class="cadangan__progres-spinner" aria-hidden="true"></span>
+            <span>Mengimpor data, harap tunggu…</span>
+          </div>
+        </section>
+
+        <!-- Contoh status error -->
+        <section class="cadangan__seksi">
+          <h2 class="cadangan__seksi-judul">Riwayat Cadangan</h2>
+          <div class="kartu-status-cadangan kartu-status-cadangan--error">
+            <span class="kartu-status-cadangan__label">Cadangan terakhir</span>
+            <time class="kartu-status-cadangan__waktu" datetime="2026-11-01T08:00">01 Nov 2026, 08:00</time>
+            <span class="kartu-status-cadangan__info kartu-status-cadangan__info--error">Cadangan gagal — penyimpanan penuh.</span>
+          </div>
+        </section>
+
+        <!-- Catatan privasi -->
+        <p class="cadangan__catatan">
+          <strong>PRIVASI</strong> — File cadangan dienkripsi dengan PIN kamu. Tidak ada data yang dikirim ke server mana pun. Simpan file di tempat yang kamu percaya.
+        </p>
+
+      </main>
+
+      <!-- Nav bawah -->
+      <nav class="bottom-nav" aria-label="Navigasi utama">
+        <a class="bottom-nav__item" href="#" aria-label="Beranda">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Beranda</span>
+        </a>
+        <a class="bottom-nav__item" href="#" aria-label="Keluarga">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Keluarga</span>
+        </a>
+        <a class="bottom-nav__item bottom-nav__item--active" href="#" aria-current="page" aria-label="Cadangan">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="21 15 21 21 3 21 3 15"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>Cadangan</span>
+        </a>
+        <a class="bottom-nav__item" href="#" aria-label="Pengaturan">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          <span>Pengaturan</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===== LAYAR PENGATURAN ===== -->
+  <div>
+    <div class="ponsel__label">Pengaturan</div>
+    <div class="ponsel">
+      <main class="layar-pengaturan">
+
+        <!-- Header -->
+        <header class="layar-pengaturan__header">
+          <h1 class="layar-pengaturan__judul">Pengaturan</h1>
+        </header>
+
+        <!-- Grup: Keamanan -->
+        <section class="pengaturan__grup">
+          <span class="pengaturan__grup-label">Keamanan</span>
+          <div class="pengaturan__daftar">
+
+            <!-- Ubah PIN -->
+            <button class="pengaturan__item" type="button">
+              <div class="pengaturan__item-teks">
+                <span class="pengaturan__item-nama">Ubah PIN</span>
+                <span class="pengaturan__item-sub">Kata sandi 6 digit untuk membuka aplikasi</span>
+              </div>
+              <div class="pengaturan__item-kontrol">
+                <svg class="pengaturan__panah" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <!-- Kunci otomatis -->
+            <div class="pengaturan__item pengaturan__item--info">
+              <div class="pengaturan__item-teks">
+                <label class="pengaturan__item-nama" for="kunci-otomatis">Kunci otomatis</label>
+                <span class="pengaturan__item-sub">Kunci aplikasi saat layar mati</span>
+              </div>
+              <div class="pengaturan__item-kontrol">
+                <div class="toggle-wrap">
+                  <input type="checkbox" id="kunci-otomatis" checked aria-label="Kunci otomatis" />
+                  <div class="toggle-track">
+                    <div class="toggle-thumb"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Grup: Preferensi -->
+        <section class="pengaturan__grup">
+          <span class="pengaturan__grup-label">Preferensi</span>
+          <div class="pengaturan__daftar">
+
+            <!-- Pengingat -->
+            <div class="pengaturan__item pengaturan__item--info">
+              <div class="pengaturan__item-teks">
+                <label class="pengaturan__item-nama" for="aktif-pengingat">Pengingat aktif</label>
+                <span class="pengaturan__item-sub">Notifikasi untuk kontrol dan imunisasi</span>
+              </div>
+              <div class="pengaturan__item-kontrol">
+                <div class="toggle-wrap">
+                  <input type="checkbox" id="aktif-pengingat" checked aria-label="Pengingat aktif" />
+                  <div class="toggle-track">
+                    <div class="toggle-thumb"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bahasa -->
+            <div class="pengaturan__item pengaturan__item--info">
+              <div class="pengaturan__item-teks">
+                <span class="pengaturan__item-nama">Bahasa</span>
+                <span class="pengaturan__item-sub">Antarmuka aplikasi</span>
+              </div>
+              <div class="pengaturan__item-kontrol">
+                <span class="pengaturan__nilai">Indonesia</span>
+                <svg class="pengaturan__panah" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Grup: Data & Privasi -->
+        <section class="pengaturan__grup">
+          <span class="pengaturan__grup-label">Data &amp; Privasi</span>
+          <div class="pengaturan__daftar">
+
+            <!-- Cadangan -->
+            <button class="pengaturan__item" type="button">
+              <div class="pengaturan__item-teks">
+                <span class="pengaturan__item-nama">Cadangan data</span>
+                <span class="pengaturan__item-sub">Ekspor dan impor file .rk terenkripsi</span>
+              </div>
+              <div class="pengaturan__item-kontrol">
+                <svg class="pengaturan__panah" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+            <!-- Hapus semua data -->
+            <button class="pengaturan__item pengaturan__item--bahaya" type="button">
+              <div class="pengaturan__item-teks">
+                <span class="pengaturan__item-nama pengaturan__item-nama--bahaya">Hapus semua data</span>
+                <span class="pengaturan__item-sub">Tidak dapat dibatalkan — pastikan sudah ekspor cadangan</span>
+              </div>
+              <div class="pengaturan__item-kontrol">
+                <svg class="pengaturan__panah" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </button>
+
+          </div>
+        </section>
+
+        <!-- Grup: Tentang -->
+        <section class="pengaturan__grup">
+          <span class="pengaturan__grup-label">Tentang</span>
+          <div class="pengaturan__daftar">
+
+            <div class="pengaturan__item pengaturan__item--info">
+              <div class="pengaturan__item-teks">
+                <span class="pengaturan__item-nama">Versi aplikasi</span>
+              </div>
+              <div class="pengaturan__item-kontrol">
+                <span class="chip-versi">1.0.0</span>
+              </div>
+            </div>
+
+            <div class="pengaturan__item pengaturan__item--info">
+              <div class="pengaturan__item-teks">
+                <span class="pengaturan__item-nama">Lisensi</span>
+                <span class="pengaturan__item-sub">MIT</span>
+              </div>
+              <div class="pengaturan__item-kontrol">
+                <svg class="pengaturan__panah" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Catatan privasi -->
+        <div class="pengaturan__catatan-privasi" role="note">
+          <span class="pengaturan__catatan-privasi-judul">Privasi</span>
+          <p class="pengaturan__catatan-privasi-teks">
+            Semua data disimpan hanya di perangkat ini. Tidak ada koneksi ke server eksternal. Tidak ada iklan, pelacakan, atau analitik.
+          </p>
+        </div>
+
+      </main>
+
+      <!-- Nav bawah -->
+      <nav class="bottom-nav" aria-label="Navigasi utama">
+        <a class="bottom-nav__item" href="#" aria-label="Beranda">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Beranda</span>
+        </a>
+        <a class="bottom-nav__item" href="#" aria-label="Keluarga">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Keluarga</span>
+        </a>
+        <a class="bottom-nav__item" href="#" aria-label="Cadangan">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="21 15 21 21 3 21 3 15"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>Cadangan</span>
+        </a>
+        <a class="bottom-nav__item bottom-nav__item--active" href="#" aria-current="page" aria-label="Pengaturan">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          <span>Pengaturan</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+</div><!-- /preview-grid -->
+
+<!-- Catatan inkonsistensi -->
+<div class="inkonsistensi" role="note">
+  <span class="inkonsistensi__judul">Catatan inkonsistensi — perlu ditindaklanjuti developer</span>
+  <ul class="inkonsistensi__list">
+    <li><strong>Warna hardcoded di CSS developer:</strong> <code>#4a5893</code> (teks sekunder) dan <code>#3d4a7a</code> dipakai langsung di <code>Beranda.css</code>, <code>Timeline.css</code>, <code>RiwayatPenyakit.css</code> — belum ada token. Sebaiknya ditambah sebagai <code>--color-secondary</code> atau <code>--color-muted</code> di <code>tokens.css</code>.</li>
+    <li><strong>Nav bawah belum diimplementasikan:</strong> App saat ini hanya menampilkan satu layar (Beranda routing manual). Bar navigasi bawah dari <code>design/components.css</code> belum digunakan — developer perlu mengintegrasikan router dan nav.</li>
+    <li><strong>Ikon pakai SVG inline:</strong> Implementasi developer sudah menggunakan SVG inline (sesuai aturan tanpa emoji ikon). Pastikan konsisten saat Cadangan dan Pengaturan diimplementasikan.</li>
+    <li><strong>Layar Riwayat &amp; Keluarga:</strong> Sudah ada di kode (<code>Timeline.tsx</code>, <code>RiwayatPenyakit.tsx</code>, <code>HalamanAnggota.tsx</code>) — desain dianggap sesuai gaya yang ada, tidak perlu mockup baru.</li>
+  </ul>
+</div>
+
+</body>
+</html>

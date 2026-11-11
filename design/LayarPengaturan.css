@@ -1,0 +1,237 @@
+/*
+ * Layar Pengaturan — desain referensi (Issue #15)
+ * Konsisten dengan gaya Beranda, Timeline, HalamanAnggota.
+ * Komponen: pakai tokens.css + components.css dari design/.
+ */
+
+/* ---- Kontainer utama ---- */
+.layar-pengaturan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-4) calc(var(--space-8) + env(safe-area-inset-bottom));
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: var(--color-bg);
+}
+
+/* ---- Header ---- */
+.layar-pengaturan__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.layar-pengaturan__judul {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+  flex: 1;
+}
+
+/* ---- Grup pengaturan ---- */
+.pengaturan__grup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.pengaturan__grup-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: #4a5893;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 var(--space-1);
+}
+
+/* ---- Daftar item pengaturan ---- */
+.pengaturan__daftar {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- Item baris ---- */
+.pengaturan__item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  min-height: var(--touch-min);
+  border-bottom: var(--border-width) solid var(--color-blue-light);
+  background: transparent;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.12s;
+}
+
+.pengaturan__item:last-child {
+  border-bottom: none;
+}
+
+.pengaturan__item:hover,
+.pengaturan__item:focus-visible {
+  background: var(--color-bg);
+}
+
+.pengaturan__item--bahaya:hover,
+.pengaturan__item--bahaya:focus-visible {
+  background: rgba(192, 57, 43, 0.04);
+}
+
+/* Baris non-klik (hanya tampil info) */
+.pengaturan__item--info {
+  cursor: default;
+}
+
+.pengaturan__item--info:hover,
+.pengaturan__item--info:focus-visible {
+  background: transparent;
+}
+
+.pengaturan__item-teks {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pengaturan__item-nama {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.pengaturan__item-nama--bahaya {
+  color: var(--color-danger);
+}
+
+.pengaturan__item-sub {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: #4a5893;
+}
+
+/* ---- Kontrol kanan ---- */
+.pengaturan__item-kontrol {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+/* Nilai teks (misal: versi, status) */
+.pengaturan__nilai {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: #4a5893;
+}
+
+/* Panah navigasi */
+.pengaturan__panah {
+  width: 20px;
+  height: 20px;
+  color: #9ba8d4;
+  flex-shrink: 0;
+}
+
+/* ---- Toggle switch (elemen asli: checkbox) ---- */
+/* Wrapper input[type=checkbox] sebagai toggle visual */
+.toggle-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.toggle-wrap input[type="checkbox"] {
+  /* Sembunyikan native tapi tetap accessible */
+  position: absolute;
+  opacity: 0;
+  width: 44px;
+  height: 26px;
+  margin: 0;
+  cursor: pointer;
+  z-index: 1;
+  min-height: unset;
+}
+
+.toggle-track {
+  display: flex;
+  align-items: center;
+  width: 44px;
+  height: 26px;
+  background: var(--border-color);
+  border-radius: var(--radius-pill);
+  transition: background 0.2s;
+  pointer-events: none;
+  position: relative;
+}
+
+.toggle-wrap input[type="checkbox"]:checked ~ .toggle-track {
+  background: var(--color-primary);
+}
+
+.toggle-thumb {
+  position: absolute;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-white);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transition: left 0.2s;
+}
+
+.toggle-wrap input[type="checkbox"]:checked ~ .toggle-track .toggle-thumb {
+  left: 21px;
+}
+
+.toggle-wrap input[type="checkbox"]:focus-visible ~ .toggle-track {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ---- Chip versi ---- */
+.chip-versi {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-primary);
+  background: var(--color-blue-light);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+/* ---- Catatan privasi ---- */
+.pengaturan__catatan-privasi {
+  background: var(--color-blue-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.pengaturan__catatan-privasi-judul {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pengaturan__catatan-privasi-teks {
+  font-size: var(--text-xs);
+  color: #3d4a7a;
+  line-height: var(--leading-normal);
+}

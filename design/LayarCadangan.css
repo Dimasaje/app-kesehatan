@@ -1,0 +1,180 @@
+/*
+ * Layar Cadangan — desain referensi (Issue #15)
+ * Konsisten dengan gaya Beranda, Timeline, HalamanAnggota.
+ * Komponen: pakai tokens.css + components.css dari design/.
+ */
+
+/* ---- Kontainer utama ---- */
+.layar-cadangan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-4) calc(var(--space-8) + env(safe-area-inset-bottom));
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: var(--color-bg);
+}
+
+/* ---- Header ---- */
+.layar-cadangan__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.layar-cadangan__judul {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+  flex: 1;
+}
+
+/* ---- Kartu status cadangan terakhir ---- */
+.kartu-status-cadangan {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-left: 4px solid var(--color-primary);
+}
+
+.kartu-status-cadangan--error {
+  border-left-color: var(--color-danger);
+}
+
+.kartu-status-cadangan--peringatan {
+  border-left-color: var(--color-warning);
+}
+
+.kartu-status-cadangan__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: #4a5893;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.kartu-status-cadangan__waktu {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.kartu-status-cadangan__info {
+  font-size: var(--text-xs);
+  color: #4a5893;
+}
+
+.kartu-status-cadangan__info--error {
+  color: var(--color-danger);
+}
+
+.kartu-status-cadangan__info--peringatan {
+  color: var(--color-warning);
+}
+
+.kartu-status-cadangan__ukuran {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: #4a5893;
+  background: var(--color-blue-light);
+  display: inline-block;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  align-self: flex-start;
+}
+
+/* ---- Seksi aksi ---- */
+.cadangan__seksi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.cadangan__seksi-judul {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+}
+
+/* ---- Kartu aksi (ekspor / impor) ---- */
+.kartu-aksi-cadangan {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-4) var(--space-5);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.kartu-aksi-cadangan__teks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.kartu-aksi-cadangan__nama {
+  font-weight: 600;
+  font-size: var(--text-base);
+  color: var(--color-ink);
+}
+
+.kartu-aksi-cadangan__deskripsi {
+  font-size: var(--text-xs);
+  color: #4a5893;
+  line-height: var(--leading-normal);
+}
+
+/* ---- Tombol aksi cadangan ---- */
+.kartu-aksi-cadangan__btn {
+  flex-shrink: 0;
+}
+
+/* ---- Pesan progres ---- */
+.cadangan__progres {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-blue-light);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+}
+
+.cadangan__progres-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: putar 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes putar {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Catatan privasi ---- */
+.cadangan__catatan {
+  font-size: var(--text-xs);
+  color: #4a5893;
+  background: var(--color-blue-light);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  line-height: var(--leading-normal);
+}
+
+.cadangan__catatan strong {
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+}
