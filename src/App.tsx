@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import './App.css'
 import { Beranda } from './beranda/Beranda'
+import { HalamanAnggota } from './anggota/HalamanAnggota'
+import { HalamanPengingat } from './pengingat/HalamanPengingat'
 import { LayarBuatPin } from './kunci/LayarBuatPin'
 import { LayarMasukkanPin } from './kunci/LayarMasukkanPin'
 import { useKunci } from './kunci/useKunci'
+import { NavBawah } from './navigasi/NavBawah'
+import type { TabNav } from './navigasi/NavBawah'
 
 export default function App() {
   const kunci = useKunci()
   const [sibuk, setSibuk] = useState(false)
+  const [tab, setTab] = useState<TabNav>('beranda')
 
   if (kunci.status === 'memuat') {
     return (
@@ -47,5 +52,32 @@ export default function App() {
   }
 
   // status === 'terbuka'
-  return <Beranda onKunci={kunci.kunci} />
+  function renderKonten() {
+    switch (tab) {
+      case 'beranda':
+        return <Beranda onKunci={kunci.kunci} onNavigasi={setTab} />
+      case 'riwayat':
+        return <HalamanAnggota onKembali={() => setTab('beranda')} />
+      case 'pengingat':
+        return <HalamanPengingat onKembali={() => setTab('beranda')} />
+      case 'pengaturan':
+        return (
+          <div className="layar-placeholder">
+            <p>Pengaturan — menyusul (Issue #14).</p>
+            <button type="button" className="btn btn-ghost" onClick={() => setTab('beranda')}>
+              ← Beranda
+            </button>
+          </div>
+        )
+    }
+  }
+
+  return (
+    <div className="app-shell">
+      <main className="app-shell__konten">
+        {renderKonten()}
+      </main>
+      <NavBawah aktif={tab} onChange={setTab} />
+    </div>
+  )
 }

@@ -7,7 +7,6 @@
 import { useState } from 'react'
 import type { Anggota, Pengingat } from '../data/skema'
 import { HalamanAnggota } from '../anggota/HalamanAnggota'
-import { HalamanPengingat } from '../pengingat/HalamanPengingat'
 import { useBeranda } from './useBeranda'
 import './Beranda.css'
 
@@ -84,23 +83,18 @@ function KartuPengingat({ pengingat }: { pengingat: Pengingat }) {
 
 interface Props {
   onKunci(): void
+  onNavigasi(tab: 'beranda' | 'riwayat' | 'pengingat' | 'pengaturan'): void
 }
 
-type Layar = 'beranda' | 'anggota' | 'pengingat'
+type Layar = 'beranda' | 'anggota'
 
-export function Beranda({ onKunci }: Props) {
+export function Beranda({ onKunci, onNavigasi }: Props) {
   const { anggota, pengingat, memuatAnggota, muat } = useBeranda()
   const [layar, setLayar] = useState<Layar>('beranda')
 
   if (layar === 'anggota') {
     return (
       <HalamanAnggota onKembali={() => { setLayar('beranda'); void muat() }} />
-    )
-  }
-
-  if (layar === 'pengingat') {
-    return (
-      <HalamanPengingat onKembali={() => { setLayar('beranda'); void muat() }} />
     )
   }
 
@@ -189,7 +183,7 @@ export function Beranda({ onKunci }: Props) {
             <button
               type="button"
               className="btn btn-ghost beranda__btn-kelola"
-              onClick={() => setLayar('pengingat')}
+              onClick={() => onNavigasi('pengingat')}
             >
               Kelola
             </button>
@@ -208,7 +202,7 @@ export function Beranda({ onKunci }: Props) {
         <button
           type="button"
           className="dashed-action"
-          onClick={() => setLayar('pengingat')}
+          onClick={() => onNavigasi('pengingat')}
         >
           + Tambah pengingat
         </button>
