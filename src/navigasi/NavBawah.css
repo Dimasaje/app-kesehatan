@@ -1,0 +1,8 @@
+/* Override button reset untuk bottom-nav — class dari design/components.css */
+.bottom-nav__item {
+  /* Tombol bawaan browser punya border/background, override ke gaya nav */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
