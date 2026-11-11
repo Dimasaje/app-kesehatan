@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rekam Keluarga — Preview Komponen</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<link rel="stylesheet" href="components.css" />
+<style>
+  body {
+    background: var(--color-bg);
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    margin: 0;
+    padding: var(--space-6) var(--space-4) 80px;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+  h1 {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    color: var(--color-ink);
+    margin: 0 0 var(--space-2);
+  }
+  .section {
+    margin-top: var(--space-8);
+  }
+  .section-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: #6B7DAD;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 var(--space-4);
+    border-bottom: var(--border-width) solid var(--border-color);
+    padding-bottom: var(--space-2);
+  }
+  .row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-bottom: var(--space-3); }
+  .swatch {
+    width: 48px; height: 48px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    display: flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 2px;
+    font-family: var(--font-mono); font-size: 9px; color: var(--color-ink);
+  }
+  .palette-row { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<h1>Rekam Keluarga</h1>
+<p style="font-family:var(--font-mono);font-size:var(--text-xs);color:#6B7DAD;">Preview Sistem Desain · Issue #2</p>
+
+<!-- PALET -->
+<div class="section">
+  <p class="section-title">Palet Warna</p>
+  <div class="palette-row">
+    <div class="swatch" style="background:#2E5BEA;color:#fff">#2E5BEA</div>
+    <div class="swatch" style="background:#14226B;color:#fff">#14226B</div>
+    <div class="swatch" style="background:#DCE5FB">#DCE5FB</div>
+    <div class="swatch" style="background:#EEF2FF">#EEF2FF</div>
+    <div class="swatch" style="background:#FFFFFF">#FFF</div>
+  </div>
+</div>
+
+<!-- TIPOGRAFI -->
+<div class="section">
+  <p class="section-title">Tipografi</p>
+  <p style="font-family:var(--font-heading);font-size:var(--text-2xl);margin:0 0 4px">Newsreader — Judul</p>
+  <p style="font-family:var(--font-heading);font-size:var(--text-xl);font-style:italic;margin:0 0 8px;color:var(--color-primary)">Rekam Keluarga</p>
+  <p style="font-family:var(--font-body);font-size:var(--text-base);margin:0 0 4px">IBM Plex Sans — Teks isi, label, tombol</p>
+  <p style="font-family:var(--font-mono);font-size:var(--text-sm);margin:0;color:#6B7DAD">IBM Plex Mono — 11 Nov 2026 · A+</p>
+</div>
+
+<!-- TOMBOL -->
+<div class="section">
+  <p class="section-title">Tombol Pill</p>
+  <div class="row">
+    <button class="btn btn-primary">Simpan</button>
+    <button class="btn btn-secondary">Batal</button>
+    <button class="btn btn-ghost">Lihat Semua</button>
+  </div>
+  <div class="row">
+    <button class="btn btn-primary" disabled>Nonaktif</button>
+  </div>
+</div>
+
+<!-- KARTU SAMPUL -->
+<div class="section">
+  <p class="section-title">Kartu Sampul Anggota</p>
+  <article class="cover-card" style="margin-bottom:var(--space-3)">
+    <div class="cover-card__avatar">B</div>
+    <div class="cover-card__meta">
+      <span class="blood-stamp">O+</span>
+      <h2 class="cover-card__name">Budi Santoso</h2>
+      <p class="cover-card__role">Ayah</p>
+    </div>
+  </article>
+  <article class="cover-card">
+    <div class="cover-card__avatar">S</div>
+    <div class="cover-card__meta">
+      <span class="blood-stamp">A+</span>
+      <h2 class="cover-card__name">Siti Rahayu</h2>
+      <p class="cover-card__role">Ibu</p>
+    </div>
+  </article>
+</div>
+
+<!-- KOTAK TANGGAL -->
+<div class="section">
+  <p class="section-title">Kotak Tanggal</p>
+  <div class="row">
+    <time class="date-stamp" datetime="2026-11-11">11 Nov 2026</time>
+    <time class="date-stamp" datetime="2026-01-05">05 Jan 2026</time>
+  </div>
+</div>
+
+<!-- TAG -->
+<div class="section">
+  <p class="section-title">Tag / Chip</p>
+  <div class="row">
+    <span class="tag">Imunisasi</span>
+    <span class="tag">Kontrol</span>
+    <span class="tag tag--primary">Aktif</span>
+    <span class="tag">Obat</span>
+  </div>
+</div>
+
+<!-- INPUT -->
+<div class="section">
+  <p class="section-title">Input Bergaris</p>
+  <div style="display:flex;flex-direction:column;gap:var(--space-5)">
+    <div class="field">
+      <label class="field__label" for="nama">Nama Lengkap</label>
+      <input class="field__input" id="nama" type="text" placeholder="Masukkan nama" />
+      <span class="field__hint">Wajib diisi</span>
+    </div>
+    <div class="field">
+      <label class="field__label" for="tgl">Tanggal Lahir</label>
+      <input class="field__input" id="tgl" type="date" />
+    </div>
+  </div>
+</div>
+
+<!-- AREA AKSI -->
+<div class="section">
+  <p class="section-title">Area Aksi (Garis Putus-putus)</p>
+  <button class="dashed-action" type="button">+ Tambah Anggota</button>
+</div>
+
+<!-- NAVIGASI BAWAH -->
+<nav class="bottom-nav" aria-label="Navigasi utama">
+  <a class="bottom-nav__item bottom-nav__item--active" href="#" aria-current="page">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Beranda</span>
+  </a>
+  <a class="bottom-nav__item" href="#">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span>Keluarga</span>
+  </a>
+  <a class="bottom-nav__item" href="#">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="12 8 12 12 14 14"/><circle cx="12" cy="12" r="10"/></svg>
+    <span>Riwayat</span>
+  </a>
+  <a class="bottom-nav__item" href="#">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+    <span>Pengaturan</span>
+  </a>
+</nav>
+
+</body>
+</html>

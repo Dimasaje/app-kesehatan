@@ -1,0 +1,57 @@
+/* ============================================================
+   Rekam Keluarga — Design Tokens
+   Issue #2: Sistem desain dasar
+   ============================================================ */
+
+:root {
+  /* --- Warna --- */
+  --color-primary:    #2E5BEA; /* aksi, penekanan */
+  --color-ink:        #14226B; /* teks utama */
+  --color-blue-light: #DCE5FB; /* latar kartu, chip */
+  --color-bg:         #EEF2FF; /* latar halaman */
+  --color-white:      #FFFFFF;
+
+  /* Status */
+  --color-success:    #1A7A4A;
+  --color-warning:    #B45309;
+  --color-danger:     #C0392B;
+
+  /* --- Tipografi --- */
+  --font-heading:  'Newsreader', Georgia, serif;      /* judul */
+  --font-body:     'IBM Plex Sans', system-ui, sans-serif; /* isi */
+  --font-mono:     'IBM Plex Mono', 'Courier New', monospace; /* tanggal, label kecil */
+
+  --text-xs:   0.75rem;   /* 12px — label mono kecil */
+  --text-sm:   0.875rem;  /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg:   1.125rem;  /* 18px */
+  --text-xl:   1.375rem;  /* 22px — judul kartu */
+  --text-2xl:  1.75rem;   /* 28px — judul halaman */
+
+  --leading-tight:  1.2;
+  --leading-normal: 1.5;
+
+  /* --- Jarak --- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* --- Radius --- */
+  --radius-sm:  6px;
+  --radius-md: 12px;
+  --radius-pill: 9999px;
+
+  /* --- Bayangan --- */
+  --shadow-card: 0 2px 8px rgba(46, 91, 234, 0.10);
+
+  /* --- Area sentuh minimum --- */
+  --touch-min: 44px;
+
+  /* --- Tebal border --- */
+  --border-width: 1.5px;
+  --border-color: #B6C6F5;
+}

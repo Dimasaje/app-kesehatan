@@ -1,0 +1,280 @@
+/* ============================================================
+   Rekam Keluarga — Komponen Dasar
+   Issue #2: Sistem desain dasar
+   Import tokens.css sebelum file ini.
+   ============================================================ */
+
+/* ---- Reset minimal ---- */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ============================================================
+   1. TOMBOL PILL
+   <button class="btn btn-primary">Label</button>
+   <button class="btn btn-secondary">Label</button>
+   <button class="btn btn-ghost">Label</button>
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  border: var(--border-width) solid transparent;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s;
+  text-decoration: none;
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.btn-primary:hover:not(:disabled) { opacity: 0.88; }
+
+.btn-secondary {
+  background: var(--color-blue-light);
+  color: var(--color-ink);
+}
+.btn-secondary:hover:not(:disabled) { opacity: 0.80; }
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.btn-ghost:hover:not(:disabled) { background: var(--color-blue-light); }
+
+/* ============================================================
+   2. KARTU SAMPUL ANGGOTA
+   <article class="cover-card">
+     <div class="cover-card__avatar">...</div>
+     <div class="cover-card__meta">
+       <span class="blood-stamp">A+</span>
+       <h2 class="cover-card__name">Nama</h2>
+       <p class="cover-card__role">Ayah</p>
+     </div>
+   </article>
+   ============================================================ */
+.cover-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  border-left: 4px solid var(--color-primary);
+}
+
+.cover-card__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-blue-light);
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+}
+
+.cover-card__meta { flex: 1; min-width: 0; }
+
+.cover-card__name {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+  margin: 0;
+  line-height: var(--leading-tight);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cover-card__role {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  margin: 2px 0 0;
+}
+
+/* Golongan darah — cap miring */
+.blood-stamp {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+  transform: rotate(-6deg);
+  letter-spacing: 0.05em;
+  float: right;
+}
+
+/* ============================================================
+   3. KOTAK TANGGAL (cap gaya buku kesehatan)
+   <time class="date-stamp" datetime="2026-11-11">11 Nov 2026</time>
+   ============================================================ */
+.date-stamp {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  letter-spacing: 0.08em;
+  background: var(--color-bg);
+}
+
+/* ============================================================
+   4. TAG / CHIP
+   <span class="tag">Imunisasi</span>
+   <span class="tag tag--primary">Aktif</span>
+   ============================================================ */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  background: var(--color-blue-light);
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+.tag--primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* ============================================================
+   5. INPUT BERGARIS
+   <div class="field">
+     <label class="field__label" for="nama">Nama Lengkap</label>
+     <input class="field__input" id="nama" type="text" placeholder="..." />
+     <span class="field__hint">Opsional</span>
+   </div>
+   ============================================================ */
+.field { display: flex; flex-direction: column; gap: var(--space-1); }
+
+.field__label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.field__input {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  background: transparent;
+  border: none;
+  border-bottom: var(--border-width) solid var(--border-color);
+  border-radius: 0;
+  min-height: var(--touch-min);
+  padding: var(--space-2) 0;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+.field__input::placeholder { color: #94A3C8; }
+.field__input:focus { border-bottom-color: var(--color-primary); }
+
+.field__hint {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: #6B7DAD;
+}
+
+/* ============================================================
+   6. BAR NAVIGASI BAWAH
+   <nav class="bottom-nav" aria-label="Navigasi utama">
+     <a class="bottom-nav__item bottom-nav__item--active" href="/beranda" aria-current="page">
+       <svg ...></svg>
+       <span>Beranda</span>
+     </a>
+     ...
+   </nav>
+   ============================================================ */
+.bottom-nav {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--color-white);
+  border-top: var(--border-width) solid var(--border-color);
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.bottom-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  flex: 1;
+  min-width: var(--touch-min);
+  color: #6B7DAD;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.bottom-nav__item svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+
+.bottom-nav__item--active,
+.bottom-nav__item[aria-current="page"] {
+  color: var(--color-primary);
+}
+
+/* ============================================================
+   7. AREA AKSI — garis putus-putus
+   <button class="dashed-action" type="button">+ Tambah Anggota</button>
+   ============================================================ */
+.dashed-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--touch-min);
+  border: 1.5px dashed var(--color-primary);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.dashed-action:hover { background: var(--color-blue-light); }
