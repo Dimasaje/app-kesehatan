@@ -70,7 +70,12 @@ function KartuPenyakit({ anggota, onTambahKondisi, onHapusKondisi, sibuk }: Kart
                   {k}
                   {apakahMenurun(k) && (
                     <span className="kartu-penyakit__ikon-menurun" title="Dapat menurun" aria-label="Dapat menurun">
-                      🧬
+                      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <circle cx="5" cy="4" r="2" stroke="currentColor" strokeWidth="1.5"/>
+                        <circle cx="11" cy="12" r="2" stroke="currentColor" strokeWidth="1.5"/>
+                        <path d="M5 6 Q8 8 11 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                        <path d="M11 6 Q8 8 5 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                      </svg>
                     </span>
                   )}
                 </span>
@@ -174,7 +179,7 @@ export function RiwayatPenyakit({ onKembali }: Props) {
       </header>
 
       <p className="riwayat-penyakit__petunjuk">
-        Kondisi berlabel 🧬 dapat menurun ke generasi berikutnya.
+        Kondisi bertanda <span className="badge-menurun">MENURUN</span> dapat menurun ke generasi berikutnya.
       </p>
 
       {aktif.length === 0 ? (
