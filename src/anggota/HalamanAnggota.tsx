@@ -9,7 +9,6 @@ import {
   daftarAnggotaAktif,
   hapusAnggotaPermanen,
   perbaruiAnggota,
-  pulihkanAnggota,
   tambahAnggota,
 } from '../data/repositori/anggota'
 import type { MasukanAnggota } from '../data/repositori/anggota'
@@ -167,11 +166,6 @@ export function HalamanAnggota({ onKembali }: Props) {
     finally { setSibuk(false) }
   }
 
-  async function handlePulihkan(id: number) {
-    setSibuk(true)
-    try { await pulihkanAnggota(id); await muatDaftar() }
-    finally { setSibuk(false) }
-  }
 
   if (mode === 'tambah') {
     return (
