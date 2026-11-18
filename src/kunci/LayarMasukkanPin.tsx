@@ -41,6 +41,7 @@ export function LayarMasukkanPin({ onMasukkan, gagal, terkunci, detikSisa, sibuk
           <PinInput
             label="Masukkan PIN"
             disabled={sibuk || terkunci}
+            gagal={gagal}
             onSelesai={onMasukkan}
           />
         </>

@@ -8,20 +8,34 @@ import './PinInput.css'
 const PANJANG = 6
 
 interface Props {
-  onSelesai(pin: string): void
+  onSelesai(pin: string): void | Promise<unknown>
   disabled?: boolean
   label?: string
+  gagal?: number
 }
 
-export function PinInput({ onSelesai, disabled = false, label = 'Masukkan PIN' }: Props) {
+export function PinInput({ onSelesai, disabled = false, label = 'Masukkan PIN', gagal = 0 }: Props) {
   const [digit, setDigit] = useState<string[]>([])
+  const [kocok, setKocok] = useState(false)
   const submitRef = useRef(false)
+  const gagalSebelumnya = useRef(gagal)
 
-  // Kirim PIN begitu 6 digit terpenuhi
+  // Shake dots saat hitungan gagal bertambah
+  useEffect(() => {
+    if (gagal > gagalSebelumnya.current) {
+      setKocok(true)
+    }
+    gagalSebelumnya.current = gagal
+  }, [gagal])
+
+  // Kirim PIN begitu 6 digit terpenuhi; reset input setelah selesai (berhasil atau gagal)
   useEffect(() => {
     if (digit.length === PANJANG && !submitRef.current) {
       submitRef.current = true
-      onSelesai(digit.join(''))
+      Promise.resolve(onSelesai(digit.join(''))).finally(() => {
+        submitRef.current = false
+        setDigit([])
+      })
     }
   }, [digit, onSelesai])
 
@@ -93,8 +107,10 @@ export function PinInput({ onSelesai, disabled = false, label = 'Masukkan PIN' }
   return (
     <div className="pin-wrap" role="group" aria-label={label}>
       <p className="pin-label">{label}</p>
-      <div className="pin-dots" aria-live="polite" aria-atomic="true"
-        aria-label={`${digit.length} dari ${PANJANG} digit diisi`}>
+      <div className={`pin-dots${kocok ? ' pin-dots--kocok' : ''}`}
+        aria-live="polite" aria-atomic="true"
+        aria-label={`${digit.length} dari ${PANJANG} digit diisi`}
+        onAnimationEnd={() => setKocok(false)}>
         {dots}
       </div>
       <div className="pin-pad" aria-label="Papan angka">
