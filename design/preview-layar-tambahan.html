@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8" />
@@ -20,7 +20,7 @@
   .preview-judul {
     font-family: var(--font-heading);
     font-size: 13px;
-    color: #4a5893;
+    color: var(--color-muted);
     text-align: center;
     margin: 0 0 8px;
     letter-spacing: 0.06em;
@@ -58,7 +58,7 @@
   .ponsel__label {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: #4a5893;
+    color: var(--color-muted);
     text-align: center;
     padding: 10px 0 0;
     letter-spacing: 0.08em;
@@ -377,7 +377,7 @@
 <div class="inkonsistensi" role="note">
   <span class="inkonsistensi__judul">Catatan inkonsistensi — perlu ditindaklanjuti developer</span>
   <ul class="inkonsistensi__list">
-    <li><strong>Warna hardcoded di CSS developer:</strong> <code>#4a5893</code> (teks sekunder) dan <code>#3d4a7a</code> dipakai langsung di <code>Beranda.css</code>, <code>Timeline.css</code>, <code>RiwayatPenyakit.css</code> — belum ada token. Sebaiknya ditambah sebagai <code>--color-secondary</code> atau <code>--color-muted</code> di <code>tokens.css</code>.</li>
+    <li><strong>Warna hardcoded di CSS developer:</strong> <code>var(--color-muted)</code> (teks sekunder) dan <code>#3d4a7a</code> dipakai langsung di <code>Beranda.css</code>, <code>Timeline.css</code>, <code>RiwayatPenyakit.css</code> — belum ada token. Sebaiknya ditambah sebagai <code>--color-secondary</code> atau <code>--color-muted</code> di <code>tokens.css</code>.</li>
     <li><strong>Nav bawah belum diimplementasikan:</strong> App saat ini hanya menampilkan satu layar (Beranda routing manual). Bar navigasi bawah dari <code>design/components.css</code> belum digunakan — developer perlu mengintegrasikan router dan nav.</li>
     <li><strong>Ikon pakai SVG inline:</strong> Implementasi developer sudah menggunakan SVG inline (sesuai aturan tanpa emoji ikon). Pastikan konsisten saat Cadangan dan Pengaturan diimplementasikan.</li>
     <li><strong>Layar Riwayat &amp; Keluarga:</strong> Sudah ada di kode (<code>Timeline.tsx</code>, <code>RiwayatPenyakit.tsx</code>, <code>HalamanAnggota.tsx</code>) — desain dianggap sesuai gaya yang ada, tidak perlu mockup baru.</li>

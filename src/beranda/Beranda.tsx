@@ -7,7 +7,6 @@
 import { useState } from 'react'
 import type { Anggota, Pengingat } from '../data/skema'
 import { HalamanAnggota } from '../anggota/HalamanAnggota'
-import { HalamanPengingat } from '../pengingat/HalamanPengingat'
 import { useBeranda } from './useBeranda'
 import './Beranda.css'
 
@@ -57,7 +56,11 @@ function SampulBuku({ anggota, onClick }: { anggota: Anggota; onClick(): void })
         </span>
         {anggota.kondisiKronis.length > 0 && (
           <span className="sampul-buku__tanda-kronis" aria-label="Ada kondisi kronis" title={anggota.kondisiKronis.join(', ')}>
-            ⚠
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 2L1.5 13.5h13L8 2z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
+              <path d="M8 6.5v3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+              <circle cx="8" cy="11.5" r="0.6" fill="currentColor"/>
+            </svg>
           </span>
         )}
       </div>
@@ -84,23 +87,18 @@ function KartuPengingat({ pengingat }: { pengingat: Pengingat }) {
 
 interface Props {
   onKunci(): void
+  onNavigasi(tab: 'beranda' | 'riwayat' | 'pengingat' | 'pengaturan'): void
 }
 
-type Layar = 'beranda' | 'anggota' | 'pengingat'
+type Layar = 'beranda' | 'anggota'
 
-export function Beranda({ onKunci }: Props) {
+export function Beranda({ onKunci, onNavigasi }: Props) {
   const { anggota, pengingat, memuatAnggota, muat } = useBeranda()
   const [layar, setLayar] = useState<Layar>('beranda')
 
   if (layar === 'anggota') {
     return (
       <HalamanAnggota onKembali={() => { setLayar('beranda'); void muat() }} />
-    )
-  }
-
-  if (layar === 'pengingat') {
-    return (
-      <HalamanPengingat onKembali={() => { setLayar('beranda'); void muat() }} />
     )
   }
 
@@ -189,7 +187,7 @@ export function Beranda({ onKunci }: Props) {
             <button
               type="button"
               className="btn btn-ghost beranda__btn-kelola"
-              onClick={() => setLayar('pengingat')}
+              onClick={() => onNavigasi('pengingat')}
             >
               Kelola
             </button>
@@ -208,7 +206,7 @@ export function Beranda({ onKunci }: Props) {
         <button
           type="button"
           className="dashed-action"
-          onClick={() => setLayar('pengingat')}
+          onClick={() => onNavigasi('pengingat')}
         >
           + Tambah pengingat
         </button>

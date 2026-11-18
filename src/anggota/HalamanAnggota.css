@@ -1,4 +1,4 @@
-.halaman-anggota {
+﻿.halaman-anggota {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -30,7 +30,7 @@
 
 .halaman-anggota__kosong {
   text-align: center;
-  color: #4a5893;
+  color: var(--color-muted);
   font-size: var(--text-sm);
   padding: var(--space-8) var(--space-4);
 }
@@ -89,7 +89,7 @@
 .kartu-anggota__meta {
   font-size: var(--text-xs);
   font-family: var(--font-mono);
-  color: #4a5893;
+  color: var(--color-muted);
 }
 
 .kartu-anggota__kronis {
@@ -138,4 +138,4 @@
 }
 
 .btn-hapus-ya { color: var(--color-danger); font-weight: 600; }
-.btn-hapus-tidak { color: #4a5893; }
+.btn-hapus-tidak { color: var(--color-muted); }

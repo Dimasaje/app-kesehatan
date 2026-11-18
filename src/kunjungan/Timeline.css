@@ -1,4 +1,4 @@
-.timeline {
+﻿.timeline {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -38,7 +38,7 @@
 
 .timeline__kosong {
   text-align: center;
-  color: #4a5893;
+  color: var(--color-muted);
   font-size: var(--text-sm);
   padding: var(--space-8) 0;
 }
@@ -110,7 +110,7 @@
 .timeline__tanggal {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: #4a5893;
+  color: var(--color-muted);
 }
 
 .timeline__tempat {
@@ -198,7 +198,7 @@
 .detail-kunjungan__waktu {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  color: #4a5893;
+  color: var(--color-muted);
   margin: 0;
 }
 
@@ -214,7 +214,7 @@
 .detail-kunjungan__kunci {
   font-size: var(--text-xs);
   font-family: var(--font-mono);
-  color: #4a5893;
+  color: var(--color-muted);
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -256,4 +256,4 @@
   border-color: var(--color-danger);
 }
 .btn-hapus-ya { color: var(--color-danger); font-weight: 600; font-size: var(--text-xs); padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); border: var(--border-width) solid currentColor; background: transparent; cursor: pointer; min-height: auto; font-family: var(--font-body); }
-.btn-hapus-tidak { color: #4a5893; font-size: var(--text-xs); padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); border: var(--border-width) solid currentColor; background: transparent; cursor: pointer; min-height: auto; font-family: var(--font-body); }
+.btn-hapus-tidak { color: var(--color-muted); font-size: var(--text-xs); padding: var(--space-1) var(--space-3); border-radius: var(--radius-pill); border: var(--border-width) solid currentColor; background: transparent; cursor: pointer; min-height: auto; font-family: var(--font-body); }

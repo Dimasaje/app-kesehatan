@@ -1,4 +1,4 @@
-## Layar Tambahan — Cadangan & Pengaturan (Issue #15)
+﻿## Layar Tambahan — Cadangan & Pengaturan (Issue #15)
 
 ### Latar belakang
 
@@ -48,7 +48,7 @@ Layar **Riwayat** dan **Keluarga** sudah diimplementasikan developer (`Timeline.
 
 | Masalah | Lokasi | Rekomendasi |
 |---------|--------|-------------|
-| Warna `#4a5893` hardcoded | `Beranda.css`, `Timeline.css`, `RiwayatPenyakit.css` | Tambah `--color-muted: #4a5893` di `tokens.css` |
+| Warna `var(--color-muted)` hardcoded | `Beranda.css`, `Timeline.css`, `RiwayatPenyakit.css` | Tambah `--color-muted: var(--color-muted)` di `tokens.css` |
 | Nav bawah belum diintegrasikan | `App.tsx` (hanya render `Beranda`) | Tambah router sederhana + `<nav class="bottom-nav">` |
 | Ikon SVG sudah inline | Semua layar | Pertahankan — sesuai aturan |
 | Riwayat & Keluarga | `Timeline.tsx`, `HalamanAnggota.tsx` | Sudah ada, tidak perlu mockup baru |
