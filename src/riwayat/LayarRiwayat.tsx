@@ -44,7 +44,6 @@ export function LayarRiwayat() {
       <Timeline
         anggota={layar.timeline}
         onKembali={() => setLayar('pilih')}
-        onTambah={() => { /* Timeline handles add internally */ }}
       />
     )
   }

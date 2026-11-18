@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Anggota, Kunjungan } from '../data/skema'
 import { JENIS_KUNJUNGAN } from '../data/skema'
 import type { JenisKunjungan } from '../data/skema'
-import { timelineAnggota, perbaruiKunjungan, arsipkanKunjungan } from '../data/repositori/kunjungan'
+import { timelineAnggota, perbaruiKunjungan, arsipkanKunjungan, tambahKunjungan } from '../data/repositori/kunjungan'
 import { daftarLampiran, tambahLampiran, urlBlob } from '../data/repositori/lampiran'
 import type { Lampiran } from '../data/skema'
 import { FormKunjungan } from './FormKunjungan'
@@ -124,12 +124,11 @@ function DetailKunjungan({ kunjungan, onUbah, onArsip, onTutup, sibuk }: DetailK
 interface Props {
   anggota: Anggota
   onKembali(): void
-  onTambah(): void
 }
 
-type Layar = 'daftar' | { detail: Kunjungan } | { ubah: Kunjungan }
+type Layar = 'daftar' | 'tambah' | { detail: Kunjungan } | { ubah: Kunjungan }
 
-export function Timeline({ anggota, onKembali, onTambah }: Props) {
+export function Timeline({ anggota, onKembali }: Props) {
   const [kunjunganList, setKunjunganList] = useState<Kunjungan[]>([])
   const [cari, setCari] = useState('')
   const [filterJenis, setFilterJenis] = useState<JenisKunjungan | ''>('')
@@ -157,6 +156,18 @@ export function Timeline({ anggota, onKembali, onTambah }: Props) {
     cariTimer.current = setTimeout(() => { setCari(nilai); setHalaman(0) }, 350)
   }
 
+  async function handleTambah(data: MasukanKunjungan, berkas: File[]) {
+    setSibuk(true)
+    try {
+      const id = await tambahKunjungan({ ...data, anggotaId: anggota.id! })
+      for (const f of berkas) {
+        await tambahLampiran(id as number, f, f.type.startsWith('image/') ? 'foto' : 'dokumen')
+      }
+      await muat(cari, filterJenis, halaman)
+      setLayar('daftar')
+    } finally { setSibuk(false) }
+  }
+
   async function handleUbah(data: MasukanKunjungan, berkas: File[]) {
     if (typeof layar !== 'object' || !('ubah' in layar)) return
     setSibuk(true)
@@ -174,6 +185,17 @@ export function Timeline({ anggota, onKembali, onTambah }: Props) {
     setSibuk(true)
     try { await arsipkanKunjungan(id); await muat(cari, filterJenis, halaman); setLayar('daftar') }
     finally { setSibuk(false) }
+  }
+
+  if (layar === 'tambah') {
+    return (
+      <FormKunjungan
+        anggotaId={anggota.id!}
+        sibuk={sibuk}
+        onSimpan={handleTambah}
+        onBatal={() => setLayar('daftar')}
+      />
+    )
   }
 
   if (typeof layar === 'object' && 'ubah' in layar) {
@@ -207,7 +229,7 @@ export function Timeline({ anggota, onKembali, onTambah }: Props) {
           ← Kembali
         </button>
         <h1 className="timeline__judul">Riwayat {anggota.nama}</h1>
-        <button type="button" className="btn btn-primary timeline__btn-tambah" onClick={onTambah}>
+        <button type="button" className="btn btn-primary timeline__btn-tambah" onClick={() => setLayar('tambah')}>
           + Catat
         </button>
       </header>
