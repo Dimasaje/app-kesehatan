@@ -3,8 +3,15 @@
 Buku kesehatan keluarga digital: profil anggota, catatan kunjungan, obat, vaksin, dan
 pengingat — semuanya tersimpan di HP pengguna. Tidak ada server, akun, atau analitik.
 
-Status: fondasi (Milestone 1). Layar masih berupa halaman status penyimpanan sementara;
-tampilan sebenarnya dikerjakan pada Issue #2 dan #7.
+**Aplikasi:** <https://dimasaje.github.io/app-kesehatan/> — bisa dipasang ke layar utama HP
+dan dipakai tanpa internet.
+
+**Panduan pengguna:** [PANDUAN-PENGGUNA.md](PANDUAN-PENGGUNA.md) — cara memasang, mencatat
+kunjungan, dan membuat/memulihkan cadangan.
+
+Status: MVP v0.1 lengkap (Milestone 4). Semua alur utama berjalan offline; pengujian
+menyeluruh mencatat 32 lulus, 0 gagal, 2 skenario tidak dapat diuji (biometrik dan ubah PIN,
+keduanya di luar lingkup MVP).
 
 ## Keputusan teknologi
 
@@ -31,7 +38,7 @@ BASE_PATH=/app-kesehatan/ npm run build
 ```bash
 npm install
 npm run dev        # http://localhost:5173 (juga terbuka ke jaringan lokal)
-npm run test       # 10 uji skema, migrasi, repositori
+npm run test       # 15 uji skema, migrasi, repositori, ekspor/impor cadangan
 npm run lint
 npm run build      # build produksi + service worker di dist/
 npm run preview    # menyajikan dist/ di http://localhost:4173
@@ -42,7 +49,11 @@ Butuh Node 20 atau lebih baru.
 
 ## Memasang di layar utama HP
 
-Service worker hanya aktif pada **HTTPS** atau `localhost`. Membuka
+Aplikasi sudah tersedia di <https://dimasaje.github.io/app-kesehatan/>. Langkah pemasangan
+ada di [PANDUAN-PENGGUNA.md](PANDUAN-PENGGUNA.md).
+
+Petunjuk ini berlaku bila ingin menyajikan build sendiri. Service worker hanya aktif pada
+**HTTPS** atau `localhost`. Membuka
 `http://192.168.x.x:5173` dari HP **tidak** membuat aplikasi bisa dipasang.
 
 1. Build lalu sajikan di HTTPS (GitHub Pages, Netlify, atau hosting statis lain).
@@ -59,16 +70,27 @@ aktif, dan halaman tetap terbuka setelah reload dalam mode luring.
 ## Struktur folder
 
 ```
+public/fonts/          font WOFF2 self-hosted (Newsreader, IBM Plex Sans/Mono)
 public/icons/          ikon PNG (dibuat oleh scripts/generate-icons.mjs)
 scripts/               skrip pembuat ikon
+design/                token & komponen CSS, pratinjau layar
 src/
   data/
     skema.ts           bentuk data 7 entitas
     db.ts              Dexie: versi skema, migrasi, status penyimpanan
-    diagnostik.ts      uji "simpan lalu baca ulang" untuk QA
-    repositori/        akses data per entitas (anggota, pengaturan)
+    cadangan/          ekspor/impor terenkripsi (.rekam)
+    repositori/        akses data per entitas
+  kunci/               PIN: buat, masukkan, kunci aplikasi
+  beranda/             ringkasan, anggota, kartu peringatan cadangan
+  riwayat/             pemilih anggota → timeline + riwayat penyakit
+  kunjungan/           timeline, formulir, lampiran
+  penyakit/            riwayat penyakit keluarga
+  pengingat/           daftar dan formulir pengingat
+  cadangan/            layar ekspor & impor cadangan
+  pengaturan/          menu pengaturan
+  navigasi/            navigasi bawah 4 tab
   pengujian/setup.ts   pemasangan fake-indexeddb untuk uji
-  App.tsx              halaman status penyimpanan sementara
+  App.tsx              routing tab utama
 docs/arsitektur-data.md  rancangan skema dan aturan migrasi
 ```
 
@@ -86,3 +108,5 @@ Basis data: `rekam-keluarga`, skema **v2**.
 - Data tidak dienkripsi saat disimpan di IndexedDB; PIN (Issue #5) hanya menjaga akses
   lewat antarmuka. Perangkat yang tidak terkunci tetap bisa membaca penyimpanan browser.
   Berkas cadangan wajib terenkripsi (Issue #12) — itu pengaman utama saat HP hilang.
+- Laporan audit: [PRIVACY-AUDIT.md](PRIVACY-AUDIT.md). Font disajikan sendiri dari
+  `public/fonts/` (tanpa Google Fonts), dan `index.html` memasang CSP ketat.
