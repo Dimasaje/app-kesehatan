@@ -1,6 +1,6 @@
-/**
+﻿/**
  * Hook state mesin kunci PIN (Issue #5).
- * Mengelola: belum dikonfigurasi → buat PIN | dikonfigurasi → masukkan PIN.
+ * Mengelola: belum dikonfigurasi â†’ buat PIN | dikonfigurasi â†’ masukkan PIN.
  * Ekspor satu hook `useKunci` untuk dipakai App.tsx.
  */
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -28,7 +28,7 @@ export interface StateKunci {
 
 export interface AksiKunci {
   buatPin(pin: string): Promise<void>
-  masukkannPin(pin: string): Promise<boolean>
+  masukkanPin(pin: string): Promise<boolean>
   kunci(): void
 }
 
@@ -75,7 +75,7 @@ export function useKunci(): StateKunci & AksiKunci {
     setStatus('terbuka')
   }, [])
 
-  const masukkannPin = useCallback(async (pin: string): Promise<boolean> => {
+  const masukkanPin = useCallback(async (pin: string): Promise<boolean> => {
     const [hash, salt, iterasi] = await Promise.all([
       ambilPengaturan('kunci.hash'),
       ambilPengaturan('kunci.salt'),
@@ -107,7 +107,7 @@ export function useKunci(): StateKunci & AksiKunci {
     terkunci: terkunciHingga !== null,
     detikSisa,
     buatPin,
-    masukkannPin,
+    masukkanPin,
     kunci,
   }
 }

@@ -109,7 +109,7 @@ function DetailKunjungan({ kunjungan, onUbah, onArsip, onTutup, sibuk }: DetailK
                   </a>
                 ) : (
                   <a key={l.id} href={url} download={l.nama} className="detail-kunjungan__dokumen">
-                    📄 {l.nama}
+                    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" style={{width:14,height:14,verticalAlign:"middle",marginRight:4}}><rect x="2" y="1" width="10" height="14" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><path d="M4 5h7M4 8h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>{l.nama}
                   </a>
                 )
               })}

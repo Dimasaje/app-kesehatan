@@ -56,7 +56,11 @@ function SampulBuku({ anggota, onClick }: { anggota: Anggota; onClick(): void })
         </span>
         {anggota.kondisiKronis.length > 0 && (
           <span className="sampul-buku__tanda-kronis" aria-label="Ada kondisi kronis" title={anggota.kondisiKronis.join(', ')}>
-            ⚠
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 2L1.5 13.5h13L8 2z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
+              <path d="M8 6.5v3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+              <circle cx="8" cy="11.5" r="0.6" fill="currentColor"/>
+            </svg>
           </span>
         )}
       </div>

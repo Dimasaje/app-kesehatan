@@ -235,7 +235,7 @@ export function FormKunjungan({ anggotaId, awal, onSimpan, onBatal, sibuk }: Pro
             onClick={() => inputFotoRef.current?.click()}
             disabled={sibuk}
           >
-            📁 Galeri
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" style={{width:18,height:18,verticalAlign:'middle',marginRight:6}}><rect x="2" y="5" width="16" height="12" rx="2" stroke="currentColor" strokeWidth="1.6"/><path d="M2 9h16" stroke="currentColor" strokeWidth="1.6"/><path d="M6 5V3h8v2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>Galeri
           </button>
           <button
             type="button"
@@ -243,7 +243,7 @@ export function FormKunjungan({ anggotaId, awal, onSimpan, onBatal, sibuk }: Pro
             onClick={() => inputKameraRef.current?.click()}
             disabled={sibuk}
           >
-            📷 Kamera
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" style={{width:18,height:18,verticalAlign:'middle',marginRight:6}}><rect x="2" y="6" width="16" height="11" rx="2" stroke="currentColor" strokeWidth="1.6"/><circle cx="10" cy="12" r="3" stroke="currentColor" strokeWidth="1.6"/><path d="M7 6l1.5-2h3L13 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>Kamera
           </button>
         </div>
         {/* Input tersembunyi */}
@@ -273,7 +273,7 @@ export function FormKunjungan({ anggotaId, awal, onSimpan, onBatal, sibuk }: Pro
                 {b.preview ? (
                   <img src={b.preview} alt={b.file.name} className="form-preview-img" />
                 ) : (
-                  <span className="form-preview-ikon" aria-hidden="true">📄</span>
+                  <span className="form-preview-ikon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="2" width="12" height="16" rx="2" stroke="currentColor" strokeWidth="1.6"/><path d="M7 7h6M7 11h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg></span>
                 )}
                 <span className="form-preview-nama">{b.file.name}</span>
                 <button

@@ -1,7 +1,7 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import './App.css'
 import { Beranda } from './beranda/Beranda'
-import { HalamanAnggota } from './anggota/HalamanAnggota'
+import { LayarRiwayat } from './riwayat/LayarRiwayat'
 import { HalamanPengingat } from './pengingat/HalamanPengingat'
 import { LayarBuatPin } from './kunci/LayarBuatPin'
 import { LayarMasukkanPin } from './kunci/LayarMasukkanPin'
@@ -44,7 +44,7 @@ export default function App() {
         detikSisa={kunci.detikSisa}
         onMasukkan={async (pin) => {
           setSibuk(true)
-          try { return await kunci.masukkannPin(pin) }
+          try { return await kunci.masukkanPin(pin) }
           finally { setSibuk(false) }
         }}
       />
@@ -57,15 +57,15 @@ export default function App() {
       case 'beranda':
         return <Beranda onKunci={kunci.kunci} onNavigasi={setTab} />
       case 'riwayat':
-        return <HalamanAnggota onKembali={() => setTab('beranda')} />
+        return <LayarRiwayat />
       case 'pengingat':
         return <HalamanPengingat onKembali={() => setTab('beranda')} />
       case 'pengaturan':
         return (
           <div className="layar-placeholder">
-            <p>Pengaturan — menyusul (Issue #14).</p>
+            <p>Pengaturan â€” menyusul (Issue #14).</p>
             <button type="button" className="btn btn-ghost" onClick={() => setTab('beranda')}>
-              ← Beranda
+              Beranda
             </button>
           </div>
         )
