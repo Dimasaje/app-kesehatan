@@ -44,7 +44,8 @@ export function useBeranda(): DataBeranda & { muat(): void } {
       const selisih = terakhirPada
         ? (Date.now() - new Date(terakhirPada).getTime()) / 86_400_000
         : Infinity
-      setCadangan({ terakhirPada, perluDiingatkan: selisih > batasHari })
+      const batas = typeof batasHari === 'number' ? batasHari : 7
+      setCadangan({ terakhirPada, perluDiingatkan: selisih > batas })
     } finally {
       setMemuatAnggota(false)
       setMemuatPengingat(false)
