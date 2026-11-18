@@ -32,3 +32,7 @@ export async function hapusLampiran(id: Id): Promise<void> {
 export function urlBlob(blob: Blob): string {
   return URL.createObjectURL(blob)
 }
+
+export function cabutUrlBlob(url: string): void {
+  URL.revokeObjectURL(url)
+}
