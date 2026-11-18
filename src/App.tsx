@@ -3,6 +3,7 @@ import './App.css'
 import { Beranda } from './beranda/Beranda'
 import { LayarRiwayat } from './riwayat/LayarRiwayat'
 import { HalamanPengingat } from './pengingat/HalamanPengingat'
+import { HalamanPengaturan } from './pengaturan/HalamanPengaturan'
 import { LayarBuatPin } from './kunci/LayarBuatPin'
 import { LayarMasukkanPin } from './kunci/LayarMasukkanPin'
 import { useKunci } from './kunci/useKunci'
@@ -61,14 +62,7 @@ export default function App() {
       case 'pengingat':
         return <HalamanPengingat onKembali={() => setTab('beranda')} />
       case 'pengaturan':
-        return (
-          <div className="layar-placeholder">
-            <p>Pengaturan â€” menyusul (Issue #14).</p>
-            <button type="button" className="btn btn-ghost" onClick={() => setTab('beranda')}>
-              Beranda
-            </button>
-          </div>
-        )
+        return <HalamanPengaturan onKunci={kunci.kunci} />
     }
   }
 

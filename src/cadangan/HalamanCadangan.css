@@ -1,0 +1,270 @@
+/* Layar Cadangan — adaptasi dari design/LayarCadangan.css */
+
+.layar-cadangan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-4) calc(var(--space-8) + env(safe-area-inset-bottom));
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: var(--color-bg);
+}
+
+.layar-cadangan__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.layar-cadangan__judul {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-ink);
+  flex: 1;
+}
+
+.cadangan__btn-kembali {
+  min-height: auto;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.cadangan__btn-kembali svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Status cadangan terakhir */
+.kartu-status-cadangan {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border-left: 4px solid var(--color-primary);
+}
+
+.kartu-status-cadangan--peringatan {
+  border-left-color: var(--color-warning);
+}
+
+.kartu-status-cadangan__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.kartu-status-cadangan__waktu {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.kartu-status-cadangan__info {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+.kartu-status-cadangan__info--peringatan {
+  color: var(--color-warning);
+}
+
+/* Tab */
+.layar-cadangan__tab {
+  display: flex;
+  border-bottom: 2px solid var(--color-blue-light);
+}
+
+.layar-cadangan__tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.layar-cadangan__tab-btn--aktif {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* Panel */
+.panel-cadangan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-top: var(--space-4);
+}
+
+.panel-cadangan__info {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.panel-cadangan__info--peringatan {
+  background: rgba(180, 83, 9, 0.08);
+  border-left: 4px solid var(--color-warning);
+  padding: var(--space-3) var(--space-4);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  color: var(--color-warning);
+}
+
+.panel-cadangan__galat {
+  font-size: var(--text-sm);
+  color: var(--color-danger);
+  background: rgba(192, 57, 43, 0.08);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin: 0;
+}
+
+.panel-cadangan__sukses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-5) 0 var(--space-3);
+}
+
+.panel-cadangan__ikon-sukses {
+  width: 48px;
+  height: 48px;
+  color: var(--color-success);
+}
+
+.panel-cadangan__sukses-teks {
+  font-weight: 600;
+  color: var(--color-success);
+  font-size: var(--text-base);
+  margin: 0;
+}
+
+.panel-cadangan__aksi {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.panel-cadangan__setuju {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.panel-cadangan__setuju input[type="checkbox"] {
+  margin-top: 2px;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  min-height: unset;
+  accent-color: var(--color-primary);
+}
+
+/* File input */
+.field__input--file {
+  padding: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.field__hint {
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  color: var(--color-muted);
+  margin-top: var(--space-1);
+  display: block;
+}
+
+/* Ringkasan */
+.ringkasan-cadangan {
+  background: var(--color-blue-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.ringkasan-cadangan__baris {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+}
+
+.ringkasan-cadangan__baris dt {
+  color: var(--color-muted);
+}
+
+.ringkasan-cadangan__baris dd {
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0;
+  font-family: var(--font-mono);
+}
+
+/* Progres */
+.cadangan__progres {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-blue-light);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+}
+
+.cadangan__progres-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-primary);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: putar 0.8s linear infinite;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+@keyframes putar {
+  to { transform: rotate(360deg); }
+}
+
+/* Catatan privasi */
+.cadangan__catatan {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  background: var(--color-blue-light);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  line-height: var(--leading-normal);
+  margin-top: auto;
+}
+
+.cadangan__catatan strong {
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+}

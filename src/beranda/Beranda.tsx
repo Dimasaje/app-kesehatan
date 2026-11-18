@@ -93,7 +93,7 @@ interface Props {
 type Layar = 'beranda' | 'anggota'
 
 export function Beranda({ onKunci, onNavigasi }: Props) {
-  const { anggota, pengingat, memuatAnggota, muat } = useBeranda()
+  const { anggota, pengingat, cadangan, memuatAnggota, muat } = useBeranda()
   const [layar, setLayar] = useState<Layar>('beranda')
 
   if (layar === 'anggota') {
@@ -124,6 +124,29 @@ export function Beranda({ onKunci, onNavigasi }: Props) {
           </svg>
         </button>
       </header>
+
+      {/* Kartu peringatan cadangan */}
+      {cadangan.perluDiingatkan && (
+        <div className="beranda__kartu-cadangan" role="alert">
+          <div className="beranda__kartu-cadangan-teks">
+            <span className="beranda__kartu-cadangan-judul">
+              {cadangan.terakhirPada ? 'Cadangan sudah lama' : 'Belum pernah dicadangkan'}
+            </span>
+            <span className="beranda__kartu-cadangan-sub">
+              {cadangan.terakhirPada
+                ? `Terakhir dicadangkan ${Math.floor((Date.now() - new Date(cadangan.terakhirPada).getTime()) / 86_400_000)} hari lalu.`
+                : 'Lindungi data keluarga dengan membuat cadangan.'}
+            </span>
+          </div>
+          <button
+            type="button"
+            className="btn btn-ghost beranda__kartu-cadangan-btn"
+            onClick={() => onNavigasi('pengaturan')}
+          >
+            Cadangkan
+          </button>
+        </div>
+      )}
 
       {/* Daftar anggota sebagai sampul buku */}
       <section aria-labelledby="label-anggota">
