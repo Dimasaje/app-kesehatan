@@ -7,7 +7,7 @@ import type { Anggota, Kunjungan } from '../data/skema'
 import { JENIS_KUNJUNGAN } from '../data/skema'
 import type { JenisKunjungan } from '../data/skema'
 import { timelineAnggota, perbaruiKunjungan, arsipkanKunjungan, tambahKunjungan } from '../data/repositori/kunjungan'
-import { daftarLampiran, tambahLampiran, urlBlob } from '../data/repositori/lampiran'
+import { daftarLampiran, tambahLampiran, urlBlob, cabutUrlBlob } from '../data/repositori/lampiran'
 import type { Lampiran } from '../data/skema'
 import { FormKunjungan } from './FormKunjungan'
 import type { MasukanKunjungan } from '../data/repositori/kunjungan'
@@ -28,6 +28,38 @@ function formatTanggal(iso: string): string {
 
 function formatWaktu(iso: string): string {
   return new Date(iso).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+}
+
+function ItemLampiran({ item }: { item: Lampiran }) {
+  const [url] = useState(() => urlBlob(item.blob))
+
+  useEffect(() => {
+    return () => {
+      cabutUrlBlob(url)
+    }
+  }, [url])
+
+  return item.mime.startsWith('image/') ? (
+    <a href={url} target="_blank" rel="noopener noreferrer">
+      <img src={url} alt={item.nama} className="detail-kunjungan__foto" />
+    </a>
+  ) : (
+    <a href={url} download={item.nama} className="detail-kunjungan__dokumen">
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        aria-hidden="true"
+        style={{ marginRight: 4, verticalAlign: 'middle' }}
+      >
+        <path d="M13 7v4a4 4 0 0 1-8 0V5a2.5 2.5 0 0 1 5 0v6a1 1 0 0 1-2 0V6" />
+      </svg>
+      {item.nama}
+    </a>
+  )
 }
 
 interface DetailKunjunganProps {
@@ -101,18 +133,9 @@ function DetailKunjungan({ kunjungan, onUbah, onArsip, onTutup, sibuk }: DetailK
           <div className="detail-kunjungan__lampiran">
             <span className="detail-kunjungan__kunci">Lampiran</span>
             <div className="detail-kunjungan__foto-grid">
-              {lampiran.map((l) => {
-                const url = urlBlob(l.blob)
-                return l.mime.startsWith('image/') ? (
-                  <a key={l.id} href={url} target="_blank" rel="noopener noreferrer">
-                    <img src={url} alt={l.nama} className="detail-kunjungan__foto" />
-                  </a>
-                ) : (
-                  <a key={l.id} href={url} download={l.nama} className="detail-kunjungan__dokumen">
-                    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" style={{width:14,height:14,verticalAlign:"middle",marginRight:4}}><rect x="2" y="1" width="10" height="14" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><path d="M4 5h7M4 8h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>{l.nama}
-                  </a>
-                )
-              })}
+              {lampiran.map((l) => (
+                <ItemLampiran key={l.id} item={l} />
+              ))}
             </div>
           </div>
         )}
